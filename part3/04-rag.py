@@ -17,6 +17,7 @@ llm=Tongyi(
 )
 #嵌入模型
 emb=DashScopeEmbeddings(model="text-embedding-v4")
+print(type(emb))
 vector_stores=InMemoryVectorStore(embedding=emb)
 #InMemoryVectorStore()对象不是Runnable对象，无法直接入链
 #langchain中向量存储对象，有一个方法as_retriever，可以返回Runnable子类实例对象

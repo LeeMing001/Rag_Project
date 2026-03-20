@@ -19,13 +19,12 @@ def check_md5(md5_str:str):
     if not os.path.exists(config.md5_path):
         #文件不存在的情况下肯定没处理过
         open(config.md5_path,"w",encoding="utf-8").close()
-        return False
     else:
         for line in open(config.md5_path,"r",encoding="utf-8").readlines():
             line=line.strip() #处理字符串前后的空格
             if line == md5_str:
                 return True
-        return False
+    return False
 
 def save_md5(md5_str:str):
     """将传入的md5记录到文件中"""
@@ -34,9 +33,9 @@ def save_md5(md5_str:str):
 def get_string_md5(input_str:str,encoding="utf-8"):
     """将传入的字符串转为md5字符串"""
     #将字符串转换为bytes字节数组
-    str_bytes=input_str.encode(encoding=encoding)
+    str_bytes=input_str.encode(encoding=encoding)#将字符串转为二进制
     md5_obj=hashlib.md5()
-    md5_obj.update(str_bytes)#传入要转换的字节数组
+    md5_obj.update(str_bytes)#传入要转换的二进制数据，大文件可以分多次转入，所以叫update
     md5_hex=md5_obj.hexdigest()#得到md5的十六进制字符串
     return md5_hex
 class KnowledgeBaseService(object):

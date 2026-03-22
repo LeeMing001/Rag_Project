@@ -3,13 +3,14 @@ from datetime import datetime
 import config_data as config
 import hashlib
 from langchain_chroma import Chroma
-from langchain_community.embeddings import DashScopeEmbeddings
+# from langchain_community.embeddings import DashScopeEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-
+from langchain_openai.embeddings import OpenAIEmbeddings
 import os
 import dotenv
 dotenv.load_dotenv()
-os.environ["DASHSCOPE_API_KEY"]=os.getenv("MY_QIANWEN_KEY")
+os.environ["OPENAI_API_BASE"]=os.getenv("GUIJI_BASE_URL")
+os.environ["OPENAI_API_KEY"]=os.getenv("MY_GUIJI_KEY")
 
 def check_md5(md5_str:str):
     """
@@ -43,7 +44,7 @@ class KnowledgeBaseService(object):
         os.makedirs(config.persist_directory,exist_ok=True)
         self.chroma=Chroma(
             collection_name=config.collection_name,
-            embedding_function=DashScopeEmbeddings(model="text-embedding-v4"),
+            embedding_function=OpenAIEmbeddings(model=config.embeddings_model_name),
             persist_directory=config.persist_directory
         )
         self.spliter=RecursiveCharacterTextSplitter(

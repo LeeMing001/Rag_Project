@@ -1,4 +1,5 @@
 from langchain_chroma import Chroma
+
 import config_data as config
 
 class VectorStoreService(object):

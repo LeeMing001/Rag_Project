@@ -1,6 +1,7 @@
 """
 基于streamlit完成WEB网页上传服务
 pip install streamlit
+streamlit run app_file_uploader.py
 """
 import time
 
